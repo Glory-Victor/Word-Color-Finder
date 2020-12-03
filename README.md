@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# Simple React JS Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What is the use of this Repo
 
-## Available Scripts
+This Project is a Simple ReactJS Project which demonstrates the following
+1. Search and renders grid of Colors based on the user input
 
-In the project directory, you can run:
+## Prerequisites
 
-### `npm start`
+### Install Node JS
+Refer to https://nodejs.org/en/ to install nodejs
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Install create-react-app
+Install create-react-app npm package globally. This will help to easily run the project and also build the source files easily. Use the following command to install create-react-app
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+npm install -g create-react-app
+```
 
-### `npm test`
+## Cloning and Running the Application in local
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone the project into local
 
-### `npm run build`
+Install all the npm packages. Go into the project folder and type the following command to install all npm packages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In order to run the application Type the following command
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm start
+```
 
-### `npm run eject`
+The Application Runs on **localhost:3000**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Application design
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Palette.js
+1. Gets the dominant color code of an image using "usePalette" from "react-palette" library. Ref: https://www.npmjs.com/package/react-palette
+2. Gets the color name of the dominant color code using "GetColorName" from "hex-color-to-color-name". Ref: https://www.npmjs.com/package/hex-color-to-color-name
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### App.js
+1. Gets the list of image URL by using Google custom search API of search type "image".
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## API
 
-## Learn More
+Method Type: GET
+URL: https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CSR_ID}&q=${query}&searchType=image
+Params: 
+    CSR_ID - custom search ID
+    query - user input
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Example Response:
+    {
+        items: {
+            image: {
+                thumbnailLink: "image link"
+            }
+        }
+    }
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+#### Process Explanation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. When the user enters some text in the search bar, a google custom search especially for image is processed.
+2. The response of image URL are stored as an array.
+3. Each image URL is then sent to Palette.js to get the respective dominant color and color name.
+4. The respective dominant color and color name are iterated and created as a element, the collectable is given as the innerHTML of Masonry. Ref: https://www.npmjs.com/package/react-masonry-css
+ 
+## Resources
 
-### Analyzing the Bundle Size
+**create-react-app** : The following link has all the commands that can be used with create-react-app
+https://github.com/facebook/create-react-app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**ReactJS** : Refer to https://reactjs.org/ to understand the concepts of ReactJS
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
